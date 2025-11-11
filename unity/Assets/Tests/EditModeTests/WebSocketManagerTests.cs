@@ -89,6 +89,24 @@ public class WebSocketManagerTests
     }
 
     [Test]
+    public void SetTargetLanguage_UpdatesBackingField()
+    {
+        manager.SetTargetLanguage("fr");
+
+        Assert.AreEqual("fr", manager.targetLanguage);
+    }
+
+    [Test]
+    public void SetTargetLanguage_IgnoresEmptyInput()
+    {
+        manager.targetLanguage = "es";
+
+        manager.SetTargetLanguage(string.Empty);
+
+        Assert.AreEqual("es", manager.targetLanguage);
+    }
+
+    [Test]
     public void ConnectWebSocket_CallsConnect()
     {
         // Act

@@ -50,7 +50,8 @@ public class LanguageDropdownController : MonoBehaviour
 
         SelectedLabel = names[index];
         SelectedCode  = codes[index];
-        SetStatus($"Language changed to <b>{SelectedLabel}</b> ({SelectedCode}) — now translating in <b>{SelectedLabel}</b>…");
+        UpdateTargetLanguage(SelectedCode);
+        SetStatus($"Language changed to <b>{SelectedLabel}</b> ({SelectedCode})  now translating in <b>{SelectedLabel}</b>");
     }
 
     // --- Logs ---
@@ -62,7 +63,7 @@ public class LanguageDropdownController : MonoBehaviour
 
     public void ShowTranslating()
     {
-        AppendStatus($"  Now translating in <b>{SelectedLabel}</b>…");
+        AppendStatus($"  Now translating in <b>{SelectedLabel}</b>");
     }
 
     public void ShowIdle()
@@ -86,5 +87,15 @@ public class LanguageDropdownController : MonoBehaviour
             else statusText.text += msg;
         }
         Debug.Log($"[LanguageDropdown] {msg}");
+    }
+
+    private static void UpdateTargetLanguage(string languageCode)
+    {
+        if (string.IsNullOrWhiteSpace(languageCode)) return;
+
+        if (WebSocketManager.Instance != null)
+        {
+            WebSocketManager.Instance.SetTargetLanguage(languageCode);
+        }
     }
 }

@@ -283,6 +283,18 @@ public class WebSocketManager : MonoBehaviour
     }
 
     public bool IsConnected => isConnected;
+
+    public void SetTargetLanguage(string languageCode)
+    {
+        if (string.IsNullOrWhiteSpace(languageCode))
+        {
+            Debug.LogWarning("[WebSocketManager] Ignoring empty target language.");
+            return;
+        }
+
+        targetLanguage = languageCode;
+        Debug.Log($"[WebSocketManager] Target language set to {targetLanguage}");
+    }
 }
 
 [System.Serializable]
